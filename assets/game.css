@@ -1,0 +1,94 @@
+.styl{
+    position: absolute;
+    z-index: 999999;
+    top: 600px;
+    background-color: rgba(0, 0, 0, 0.418);
+    width: 60vw;
+    left: 20vw;
+    height: 50px;
+}
+
+.styl h1{
+    position: relative;
+    top: -20px
+}
+
+.styl p{
+    font-weight: bolder;
+}
+
+#p2{
+    position: relative;
+    top: -40px
+}
+
+.pvp{
+    position: absolute;
+    z-index: 999999;
+    top: 580px;
+    width: 100px;
+    left: 8vw;
+    height: 50px;
+}
+
+.pvp img{
+    width: 100%;
+    animation: mymove infinite;
+    animation-duration: 3.5s;
+}
+
+@keyframes mymove {
+    /* from {top: 0px;}
+    to {bottom: 50px;} */
+    0%   {transform: translate3d(0,0,0);}
+    40%  {transform: translate3d(0,15%,0);}
+}
+
+#atkbtn{
+    position: absolute;
+    z-index: 999999;
+    top: 620px;
+    width: 100px;
+    left: 8vw;
+    height: 100px;
+    background-color: transparent;
+    border: transparent;
+    display: block;
+}
+
+#atkbtn img{
+    width: 100%;
+}
+
+.plyrinfo{
+    font-family: 'Glory', sans-serif;
+    position: absolute;
+    z-index: 999999;
+    width: 1200px;
+    left: 50px;
+    top: 100px;
+}
+
+.l-info{
+    position: absolute;
+    left: 50px;
+    text-align: left;
+}
+
+.l-info p{
+    position: relative;
+    top: -15px;
+    margin-bottom: 0;
+}
+
+.r-info{
+    position: absolute;
+    right: 80px;
+    text-align: right;
+}
+
+.r-info p{
+    position: relative;
+    top: -15px;
+    margin-bottom: 0;
+}

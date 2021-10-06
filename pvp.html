@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
+	<title>
+		NinjaNFT
+	</title>
+	<meta charset="UTF-8">
+    <link rel = "icon" href="assets/logo.png" type = "image/x-icon"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="assets/mobile.css">
+    <link rel="stylesheet" href="assets/game.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Glory:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body id="body">
+
+    <div class="topbar">
+        <a href="index.html" id="tb">
+            <img src="assets/logo.png" alt="">
+            <img id="tb-name" src="assets/name.png" alt="">
+        </a>
+
+        <a href="game.html" id="tb-pic">
+            <img id="tb-name" src="assets/play.png" alt="">
+        </a>
+        
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div class="popup" id="popup">
+        <a href="index.html">Home</a>
+        <a href="https://twitter.com/ninjanfts?t=5TXnTgrIPV7TskY9clGklw&s=08">Twitter</a>
+        
+        <a href="https://t.me/ninjanfts">Telegram</a>
+        <a href="https://medium.com/@ninjanfts">Medium</a>
+        <a href="https://www.reddit.com/u/Ninjanfts">Reddit</a>
+        <img src="assets/logo.png"/>
+    </div>
+
+    <div class="gmobile">
+        <h1><i class='fas fa-desktop'></i></h1>
+        <p>Try NinjaNFT on desktop</p>
+    </div>
+
+    <!-- <img id="tdr" src="assets/thunder.gif"> -->
+
+    <!-- <div class="footer">
+        <div class="ft">
+            <img src="assets/name.png" alt="">
+        </div>
+
+        <div class="ft" id="play">
+            <a href="game.html"><img src="assets/play.png" alt=""></a>
+        </div>
+
+        <div class="ft">
+            <h1 style='font-family: "Audiowide", sans-serif;'>Social</h1>
+            <a href="">Twitter</a>
+            <a href="">Telegram</a>
+            <p></p>
+            <p></p>
+            <a href="">WhitePaper</a>
+        </div>
+    </div> -->
+
+    <div class="plyrinfo">
+        <div class="l-info">
+            <h1>Player</h1>
+            <p>Normal</p>
+            <p id="plyrhp"></p>
+            
+        </div>
+        <div class="r-info">
+            <h1>NPC</h1>
+            <p>Ultra rare</p>
+            <p id="npchp"></p>
+            
+        </div>
+    </div>
+
+    <button id="atkbtn" onclick="attack()"><img src="assets/sword.png"></button>
+
+    <canvas id="myCanvas" width="1200" height="600" style="border:1px solid #000000;" />   
+
+    <img id="testpic" src="assets/player.png" style="display: none;">
+    <img id="npc" src="assets/npc.png" style="display: none;">
+    <img id="lose" src="assets/pvplose.png" style="display: none;">
+    <img id="bg" src="assets/arena.png" style="display: none;">
+    
+    <!-- <canvas id="nodes"></canvas> -->
+    <script type="text/javascript" src="assets/nodes.js"></script>
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="http://p5js.sketchpad.cc/sp/pad/view/ro.COx$0Iy6rWpzsc/latest?"></script>
+	<script type="text/javascript"></script>
+	<script src="assets/index.js"></script> 
+    <script src="assets/pvp.js"></script> 
+    <script>
+        function myFunction() {
+            var x = document.getElementById("popup");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+
+        }
+
+        var xplayer = 200;
+var yplayer = 400;
+var xnpc = 950;
+var ynpc = 400;
+var speed = 50; // make this number smaller to move faster
+var leftPointer, rightPointer,upPointer,downPointer;
+var c, ctx, img;
+
+var playerHp = 100
+var npcHp = 1000
+
+document.getElementById('plyrhp').innerHTML = "Hp: " + playerHp;
+document.getElementById('npchp').innerHTML = "Hp: " + npcHp;
+
+function load_image() {
+    c = document.getElementById("myCanvas");
+    ctx = c.getContext("2d");
+    
+    background = document.getElementById("bg");
+    ctx.drawImage(background,0,0)
+    img = document.getElementById("testpic");
+    npc = document.getElementById("npc");
+    lose = document.getElementById("lose");
+    // ctx.drawImage(lose,0,0)
+    ctx.drawImage(img,xplayer,yplayer);
+    ctx.drawImage(npc,xnpc,ynpc);
+    
+}
+load_image();
+
+function attack() {
+    rightPointer = setInterval(function () {
+        xplayer = xplayer + 20;
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(background,0,0)
+        ctx.drawImage(npc,xnpc,ynpc);
+        ctx.drawImage(img,xplayer,yplayer);
+        
+        if (xplayer === 900){
+            clearInterval(rightPointer);
+            rightPointer = '';
+            npcHp = npcHp - 10
+            document.getElementById('npchp').innerHTML = "Hp: " + npcHp;
+            setTimeout(function () {
+                leftPointer = setInterval(function () {
+                    xplayer = xplayer - 20;
+                    ctx.clearRect(0, 0, c.width, c.height);
+                    ctx.drawImage(background,0,0)
+                    ctx.drawImage(npc,xnpc,ynpc);
+                    ctx.drawImage(img,xplayer,yplayer);
+                    
+                    if (xplayer === 200){
+                        clearInterval(leftPointer);
+                        leftPointer = '';
+                        setTimeout(function () {
+                            npcattack()
+                        }, 1700);
+                    }
+                }, speed)
+            }, 2000);
+        }
+    }, speed)  
+}
+
+function npcattack(){
+    leftPointer = setInterval(function () {
+        xnpc = xnpc - 20;
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(background,0,0)
+        ctx.drawImage(npc,xnpc,ynpc);
+        ctx.drawImage(img,xplayer,yplayer);
+        
+        if (xnpc === 270){
+            clearInterval(leftPointer);
+            leftPointer = '';
+            playerHp = playerHp - 100
+            document.getElementById('plyrhp').innerHTML = "Hp: " + playerHp;
+            setTimeout(function () {
+                rightPointer = setInterval(function () {
+                    xnpc = xnpc + 20;
+                    ctx.clearRect(0, 0, c.width, c.height);
+                    ctx.drawImage(background,0,0)
+                    ctx.drawImage(npc,xnpc,ynpc);
+                    // ctx.drawImage(img,xplayer,yplayer);
+                    console.log(xnpc+","+ynpc)
+                    if (xnpc === 950){
+                        clearInterval(rightPointer);
+                        rightPointer = '';
+                        ctx.drawImage(lose,0,0);
+                        document.addEventListener('keydown', function(e) {
+                            console.log(e.keyCode);
+                            if (e.keyCode == 32) {
+                                // CODE THAT STARTS LEFT IMAGE MOVEMENT GOES HERE.
+                                console.log("hi")
+                                window.open("game.html", target="_self");
+                            }
+                           
+                        }, true);
+                        btnhide()
+                    }
+                }, speed)  
+            }, 1700);
+        }
+    }, speed)
+}
+
+function btnhide(){
+    document.getElementById("atkbtn").style.display === "none"
+}
+
+
+
+
+// var styl = document.getElementById("styl");
+// if (590 >= xval <= 730 && 340 >= yval <= 400){
+//     console.log("yex");
+//     styl.style.display = "block";
+// }else {
+//     console.log("no");
+//     styl.style.display = "none";
+// }
+
+
+    </script>
+
+</body>
+</html>

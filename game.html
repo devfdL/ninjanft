@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
+	<title>
+		NinjaNFT
+	</title>
+	<meta charset="UTF-8">
+    <link rel = "icon" href="assets/logo.png" type = "image/x-icon"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="assets/mobile.css">
+    <link rel="stylesheet" href="assets/game.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body id="body">
+
+    <div class="topbar">
+        <a href="index.html" id="tb">
+            <img src="assets/logo.png" alt="">
+            <img id="tb-name" src="assets/name.png" alt="">
+        </a>
+
+        <a href="game.html" id="tb-pic">
+            <img id="tb-name" src="assets/play.png" alt="">
+        </a>
+        
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div class="popup" id="popup">
+        <a href="index.html">Home</a>
+        <a href="https://twitter.com/ninjanfts?t=5TXnTgrIPV7TskY9clGklw&s=08">Twitter</a>
+        
+        <a href="https://t.me/ninjanfts">Telegram</a>
+        <a href="https://medium.com/@ninjanfts">Medium</a>
+        <a href="https://www.reddit.com/u/Ninjanfts">Reddit</a>
+        <img src="assets/logo.png"/>
+    </div>
+
+    <div class="gmobile">
+        <h1><i class='fas fa-desktop'></i></h1>
+        <p>Try NinjaNFT on desktop</p>
+    </div>
+
+    <div class="styl" id="styl">
+        <h1>Click ⬆⬇➡⬅ to move</h1>
+    </div>
+
+    <div class="pvp" id="pvp">
+        <a href="pvp.html">
+            <img src="assets/pvp.png">
+        </a>
+        
+    </div>
+
+
+    <!-- <div class="footer">
+        <div class="ft">
+            <img src="assets/name.png" alt="">
+        </div>
+
+        <div class="ft" id="play">
+            <a href="game.html"><img src="assets/play.png" alt=""></a>
+        </div>
+
+        <div class="ft">
+            <h1 style='font-family: "Audiowide", sans-serif;'>Social</h1>
+            <a href="">Twitter</a>
+            <a href="">Telegram</a>
+            <p></p>
+            <p></p>
+            <a href="">WhitePaper</a>
+        </div>
+    </div> -->
+    <canvas id="myCanvas" width="1200" height="600" style="border:1px solid #000000;" />   
+
+    <img id="testpic" src="assets/ninja.png" style="display: none;">
+    <img id="bg" src="assets/map2.png" style="display: none;">
+    
+    <!-- <canvas id="nodes"></canvas> -->
+    <script type="text/javascript" src="assets/nodes.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+	<script type="text/javascript"></script>
+	<script src="assets/index.js"></script> 
+    <script src="assets/game.js"></script> 
+    <script>
+
+
+function myFunction() {
+  var x = document.getElementById("popup");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+
+}
+
+var xval = 650;
+var yval = 360;
+var speed = 50; // make this number smaller to move faster
+var leftPointer, rightPointer,upPointer,downPointer;
+var c, ctx, img;
+
+function load_image() {
+    c = document.getElementById("myCanvas");
+    ctx = c.getContext("2d");
+    
+    background = document.getElementById("bg");
+    ctx.drawImage(background,0,0)
+    img = document.getElementById("testpic");
+    ctx.drawImage(img,xval,yval);
+}
+load_image();
+
+// var styl = document.getElementById("styl");
+// if (590 >= xval <= 730 && 340 >= yval <= 400){
+//     console.log("yex");
+//     styl.style.display = "block";
+// }else {
+//     console.log("no");
+//     styl.style.display = "none";
+// }
+
+document.addEventListener('keydown', function(e) {
+    console.log(e.keyCode);
+    if (e.keyCode == 37) {
+        // CODE THAT STARTS LEFT IMAGE MOVEMENT GOES HERE.
+        if(!leftPointer) {
+            leftPointer = setInterval(function () {
+                xval = xval - 10;
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.drawImage(background,0,0)
+                ctx.drawImage(img,xval,yval);
+                console.log(xval+","+yval)
+            }, speed)
+        }
+    }
+    else if (e.keyCode == 39) {
+        // CODE THAT STARTS RIGHT IMAGE MOVEMENT GOES HERE.
+        if(!rightPointer) {
+            rightPointer = setInterval(function () {
+                xval = xval + 10;
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.drawImage(background,0,0)
+                ctx.drawImage(img,xval,yval);
+                console.log(xval+","+yval)
+            }, speed)
+        }
+    }
+    else if (e.keyCode == 38) {
+        // CODE THAT STARTS LEFT IMAGE MOVEMENT GOES HERE.
+        if(!upPointer) {
+            upPointer = setInterval(function () {
+                yval = yval - 10;
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.drawImage(background,0,0)
+                ctx.drawImage(img,xval,yval);
+                console.log(xval+","+yval)
+            }, speed)
+        }
+    }
+    else if (e.keyCode == 40) {
+        // CODE THAT STARTS RIGHT IMAGE MOVEMENT GOES HERE.
+        if(!downPointer) {
+            downPointer = setInterval(function () {
+                yval = yval + 10;
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.drawImage(background,0,0)
+                ctx.drawImage(img,xval,yval);
+                console.log(xval+","+yval)
+            }, speed)
+        }
+    }
+}, true);
+
+document.addEventListener('keyup', function(e) {
+    if (e.keyCode == 37) {
+        // CODE THAT STOPS LEFT IMAGE MOVEMENT GOES HERE.
+        clearInterval(leftPointer);
+        leftPointer = '';
+    }
+    else if (e.keyCode == 39) {
+        // CODE THAT STOPS RIGHT IMAGE MOVEMENT GOES HERE.
+        clearInterval(rightPointer);
+        rightPointer = '';
+    }
+    else if (e.keyCode == 38) {
+        // CODE THAT STOPS RIGHT IMAGE MOVEMENT GOES HERE.
+        clearInterval(upPointer);
+        upPointer = '';
+    }
+    else if (e.keyCode == 40) {
+        // CODE THAT STOPS RIGHT IMAGE MOVEMENT GOES HERE.
+        clearInterval(downPointer);
+        downPointer = '';
+    }
+}, true);
+    </script>
+
+</body>
+</html>
